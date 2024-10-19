@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador de código QR con descarga de imagen</title>
+  <script src="qrious.min.js"></script>
+  <style>
+    /* Estilos como se mostró en el ejemplo anterior */
+  </style>
+</head>
+<body onload="generarCodigo()">
+   <div style="text-align: center;">
+     <img id="icono" src="logo.jpg" alt="Icono" width="320"> <!-- Ruta de tu icono -->
+   </div>
+  <div id="contenedor">
+    <canvas id="codigoQR"></canvas>
+  </div>
+  <div id="enlace">
+    Enlace: <span id="link"></span>
+  </div>
+  <button onclick="descargarImagen()">Descargar imagen QR</button>
+
+  <script>
+    function generarCodigo() {
+     // var urlActual = window.location.href; // Captura la URL actual
+      var urlActual = 'https://forms.gle/gTXaP8uhWty52jbf9'; // Captura la URL actual
+      var qr = new QRious({
+        element: document.getElementById('codigoQR'),
+        value: urlActual,
+        size: 300, // Tamaño del código QR
+        backgroundAlpha: 0, // Establece el fondo del código QR como transparente
+      });
+
+      document.getElementById('link').textContent = urlActual; // Muestra el enlace debajo del QR
+    }
+
+    function descargarImagen() {
+      var canvas = document.getElementById('codigoQR');
+      var enlaceDescarga = document.createElement('a');
+      enlaceDescarga.href = canvas.toDataURL('image/png');
+      enlaceDescarga.download = 'codigoQR.png';
+      enlaceDescarga.click();
+    }
+  </script>
+</body>
+</html>
